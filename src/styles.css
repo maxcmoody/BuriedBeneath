@@ -1,0 +1,18 @@
+body { margin: 0; font-family: Arial, sans-serif; background: #111; color: #eee; }
+main { padding: 16px; }
+.panel { background: #1f1f1f; border: 1px solid #444; padding: 10px; margin-bottom: 10px; border-radius: 6px; }
+.active { border-color: #89f; }
+.row { display: flex; gap: 8px; flex-wrap: wrap; }
+.combat-layout { display: grid; grid-template-columns: 280px 1fr 360px; gap: 12px; align-items: start; }
+.grid { display: grid; gap: 4px; }
+.tile { width: 52px; height: 52px; border: 1px solid #444; background: #242424; color: #fff; font-size: 12px; }
+.tile.preview { border-color: #6f6; }
+.die { width: 56px; height: 56px; }
+.die.locked { border: 2px solid #ffb347; }
+.die.spent { opacity: 0.45; }
+.cards { display: grid; gap: 8px; }
+.cards button.selected { border: 2px solid #66d; }
+.log { max-height: 220px; overflow: auto; }
+.merchant-item { display: flex; gap: 8px; align-items: center; margin-bottom: 8px; }
+button { background: #2a2a2a; color: #fff; border: 1px solid #555; padding: 6px; border-radius: 4px; }
+button:disabled { opacity: 0.4; }
