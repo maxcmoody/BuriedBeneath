@@ -1,53 +1,67 @@
-# Buried Beneath Browser Prototype (Floor 1 MVP)
+# Pyramid Roguelite Prototype (React + TypeScript + Vite)
 
-Local single-session React + TypeScript prototype for rapid rules testing.
-
-## Install
-
-```bash
-npm install
-```
+Browser-based digital tabletop + CSV-first content editor for rapid physical playtesting.
 
 ## Run
 
 ```bash
+npm install
 npm run dev
 ```
 
-## Build
+Build check:
 
 ```bash
 npm run build
 ```
 
-## Architecture Overview
+## Modes
 
-- `src/game/core`: rules and runtime systems (combat engine, dice, movement, enemy AI scripts, initiative).
-- `src/game/content`: content data for heroes, powers, items, enemies, floor nodes.
-- `src/components`: battle/grid/dice/cards/log/map/merchant/reward UI blocks.
-- `src/app/state.ts`: run-level map flow and post-encounter transitions.
-- `src/App.tsx`: top-level view routing and interaction glue.
+- **Play Mode**: encounter sandbox with grid, heroes/enemies, initiative bag, dice lock/reroll, corruption tracker, manual power/item resolution helpers, combat log, save/load state slot.
+- **Content Editor**: table editor per CSV group with exact headers/order, add/duplicate/delete/reorder rows, import/export CSV, export all, reset seed, inline validation, copy JSON/paste row, local persistence.
+- **Run / Floor Mode**: simple 3-floor progression shell with encounter select, rest options, end-of-floor reward hooks, and quick jump back to play encounter.
 
-The design keeps game rules mostly outside UI so content/rules can be extended without rewriting components.
+## CSV editing + export
 
-## Where to edit content
+- Each group has its own **Export CSV** and **Import CSV** in Content Editor.
+- App-level **Export All CSVs** creates a single text download containing each CSV block.
+- Headers are strict and must match exactly for import.
+- Content groups supported:
+  - Player Boards
+  - Hero Powers
+  - Enemies
+  - Items
+  - Bosses (separate collection using enemy-like schema)
+  - Placeholder tabs: events, curses, manifest, schema
 
-- Heroes: `src/game/content/heroes.ts`
-- Powers: `src/game/content/powers.ts`
-- Items + merchant offers: `src/game/content/items.ts`
-- Enemies + scripts: `src/game/content/enemies.ts`
-- Floor node progression + rewards: `src/game/content/floors.ts`
+## Manual overrides philosophy
 
-## MVP assumptions beyond the bible
+Freeform card/script text is intentionally left manual-first:
 
-See `ASSUMPTIONS.md`.
+- Use **Resolve Power (manual)** and **Resolve Item (manual)** to log custom effects.
+- Enemy target suggestion follows closest -> lowest HP -> tie (player choice), but can be manually overridden by direct stat/position edits.
+- HP/shield/status/position/corruption are directly editable at all times.
 
-## TODO / NEXT-STEPS
+## Persistence
 
-- Add Floor 2 and Floor 3 map generation (`2x2 -> 3x3 -> 4x4`) and branching node graph.
-- Add more heroes with distinct special dice + power kits.
-- Add CSV import pipeline for powers/items/enemies/floor nodes.
-- Expand enemy roster and script action vocabulary (push, ranged volleys, summons, curses).
-- Add event/curses/vendor variants for non-combat nodes.
-- Add browser save/load for run progress.
-- Add proper reward implementations (real upgrades/new-power draft) replacing placeholders.
+- Whole app state auto-saves to localStorage key `pyramid-roguelite-prototype-v1`.
+- Optional manual save slot buttons in Play Mode use `pyramid-roguelite-save-slot`.
+
+## Extending schemas
+
+Add or update schema definitions in:
+
+- `src/data/schemas/contentSchemas.ts`
+
+Seed records live in:
+
+- `src/data/seed/seedContent.ts`
+
+CSV parser/export helpers live in:
+
+- `src/lib/csv/csvUtils.ts`
+
+Game rules and state actions live in:
+
+- `src/lib/rules/gameRules.ts`
+- `src/lib/state/appState.ts`
