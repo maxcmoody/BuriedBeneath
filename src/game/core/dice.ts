@@ -35,10 +35,11 @@ export const rollHeroDice = (diceState: DiceState, heroId: string): { diceState:
   const dice = diceState.diceByHeroId[heroId] ?? [];
   let skulls = 0;
   const updated = dice.map((die) => {
+    if (die.spent) return die;
     if (die.locked && die.face) return die;
     const face = rollFace(die.sides);
     if (die.type === 'core' && face === 'skull') skulls += CORRUPTION_PER_SKULL_ROLL;
-    return { ...die, face, spent: false };
+    return { ...die, face };
   });
 
   return {
