@@ -1,18 +1,25 @@
-body { margin: 0; font-family: Arial, sans-serif; background: #111; color: #eee; }
-main { padding: 16px; }
-.panel { background: #1f1f1f; border: 1px solid #444; padding: 10px; margin-bottom: 10px; border-radius: 6px; }
-.active { border-color: #89f; }
-.row { display: flex; gap: 8px; flex-wrap: wrap; }
-.combat-layout { display: grid; grid-template-columns: 280px 1fr 360px; gap: 12px; align-items: start; }
+:root { font-family: Inter, system-ui, sans-serif; color: #0f172a; background: #f8fafc; }
+* { box-sizing: border-box; }
+body { margin: 0; }
+main { padding: 12px; }
+header { position: sticky; top: 0; background: #f8fafc; padding-bottom: 8px; z-index: 4; }
+.layout { display: grid; grid-template-columns: repeat(2, minmax(360px, 1fr)); gap: 12px; align-items: start; }
+.panel { background: white; border: 1px solid #dbe4ef; border-radius: 8px; padding: 10px; }
+.row { display: flex; flex-wrap: wrap; gap: 6px; margin: 6px 0; }
+button { border: 1px solid #c4d1df; border-radius: 6px; background: #f1f5f9; padding: 6px 8px; cursor: pointer; }
+button.active { background: #1d4ed8; color: white; }
 .grid { display: grid; gap: 4px; }
-.tile { width: 52px; height: 52px; border: 1px solid #444; background: #242424; color: #fff; font-size: 12px; }
-.tile.preview { border-color: #6f6; }
-.die { width: 56px; height: 56px; }
-.die.locked { border: 2px solid #ffb347; }
-.die.spent { opacity: 0.45; }
-.cards { display: grid; gap: 8px; }
-.cards button.selected { border: 2px solid #66d; }
-.log { max-height: 220px; overflow: auto; }
-.merchant-item { display: flex; gap: 8px; align-items: center; margin-bottom: 8px; }
-button { background: #2a2a2a; color: #fff; border: 1px solid #555; padding: 6px; border-radius: 4px; }
-button:disabled { opacity: 0.4; }
+.tile { min-height: 70px; display: flex; flex-direction: column; align-items: flex-start; }
+.tile.spawn { background: #dcfce7; }
+.tile.objective { background: #fef9c3; }
+.tile.blocked { background: #fecaca; }
+.card { border: 1px solid #e2e8f0; border-radius: 8px; padding: 8px; margin-bottom: 8px; }
+.dice-line { display: flex; gap: 4px; flex-wrap: wrap; }
+.locked { background: #bae6fd; }
+table { width: 100%; border-collapse: collapse; font-size: 12px; }
+th, td { border: 1px solid #dde5ef; padding: 4px; vertical-align: top; }
+td input { width: 100%; }
+.error-row { background: #fef2f2; }
+textarea { width: 100%; min-height: 80px; }
+.log { max-height: 280px; overflow: auto; }
+@media (max-width: 1000px) { .layout { grid-template-columns: 1fr; } }
