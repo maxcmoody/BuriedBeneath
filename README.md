@@ -15,6 +15,16 @@ Build check:
 npm run build
 ```
 
+## Replit deployment
+
+This project is configured to run on Replit both in development and deployment:
+
+- `.replit` includes a run workflow (`npm ci && npm run replit-dev`) and a deployment command (`npm ci && npm run build && npm run start`).
+- `vite.config.ts` reads `process.env.PORT` and binds to `0.0.0.0` for both dev server and preview server.
+- `npm run start` serves the production build using `vite preview`.
+
+If you create a new Repl from this repository, the Run button should work without additional setup.
+
 ## Modes
 
 - **Play Mode**: encounter sandbox with grid, heroes/enemies, initiative bag, dice lock/reroll, corruption tracker, manual power/item resolution helpers, combat log, save/load state slot.
