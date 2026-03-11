@@ -1,6 +1,22 @@
-modules = ["nodejs-20", "web"]
-[agent]
-expertMode = true
+modules = ["nodejs-20"]
 
 [nix]
-channel = "stable-25_05"
+channel = "stable-24_05"
+
+[deployment]
+run = ["sh", "-lc", "npm ci && npm run build && npm run start"]
+deploymentTarget = "cloudrun"
+
+[env]
+PORT = "3000"
+
+[workflows]
+runButton = "Project"
+
+[[workflows.workflow]]
+name = "Project"
+mode = "sequential"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "npm ci && npm run replit-dev"
